@@ -1,23 +1,15 @@
 // ==UserScript==
-// @namespace    coin
 // @name         dopzx
-// @copyright    2022
-// @license      CC-BY-SA-3.0; http://creativecommons.org/licenses/by-sa/3.0/
-// @license      MIT
+// @author		 dopzx
 // @version      2.2.2
-// @include      https://my.dropz.xyz/*
-// @updateURL   https://greasyfork.org/en/scripts/438505-dopzx
-// @downloadURL   https://greasyfork.org/en/scripts/438505-dopzx
-// @grant        none
+// @license      MIT
+// @namespace    coin
+// @description	 coin
+// @copyright    2022
+// @updateURL  https://raw.githubusercontent.com/boykocodon/config/master/autodropz.js
+// @updatetype	 24
 // ==/UserScript==
 
-// ==OpenUserJS==
-// @author       KhanhhNe
-// ==/OpenUserJS==
-
-
-/*jshint esversion: 9 */
-/*jshint asi: true */
 
 var autoClick = true;
 var autoScroll = true;
