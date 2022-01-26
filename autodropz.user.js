@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         dopzx
 // @author		 dopzx
-// @version      2.2.5
+// @version      2.2.6
 // @license      MIT
 // @namespace    coin
 // @description	 coin
