@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         dopzx
 // @author		 dopzx
-// @version      2.2.4
+// @version      2.2.5
 // @license      MIT
 // @namespace    coin
 // @description	 coin
@@ -25,7 +25,7 @@ var openNewWindow = false;
 var timeWaitNextAd = 5000;
 
 var getConfig = false;
-
+var testUpdate = true;
 fetch('https://raw.githubusercontent.com/boykocodon/config/master/1.txt')
 .then((res)=>{
 	console.log(res);
