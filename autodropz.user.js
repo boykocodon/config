@@ -8,6 +8,8 @@
 // @copyright    2022
 // @updateURL  https://raw.githubusercontent.com/boykocodon/config/master/autodropz.user.js
 // @updatetype	 24
+// @include		https://my.dropz.xyz/site-friends
+// @connect     raw.githubusercontent.com
 // ==/UserScript==
 
 
@@ -21,6 +23,13 @@ var countSubmitCaptcha =0;
 var countCaptcha = 0;
 var openNewWindow = false;
 var timeWaitNextAd = 5000;
+
+var getConfig = false;
+
+fetch('https://raw.githubusercontent.com/boykocodon/config/master/1.txt')
+.then((res)=>{
+	console.log(res);
+});
 
 setInterval(function(){
     if(document.getElementsByName('h-captcha-response').length > 0){
