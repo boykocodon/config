@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         dopzx
 // @author		 dopzx
-// @version      2.2.2
+// @version      2.2.4
 // @license      MIT
 // @namespace    coin
 // @description	 coin
 // @copyright    2022
-// @updateURL  https://raw.githubusercontent.com/boykocodon/config/master/autodropz.js
+// @updateURL  https://raw.githubusercontent.com/boykocodon/config/master/autodropz.user.js
 // @updatetype	 24
 // ==/UserScript==
 
