@@ -26,6 +26,7 @@ var timeWaitNextAd = 5000;
 
 var getConfig = false;
 var testUpdate = true;
+var change = true;
 fetch('https://raw.githubusercontent.com/boykocodon/config/master/1.txt')
 .then((res)=>{
 	console.log(res);
