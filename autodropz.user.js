@@ -10,6 +10,7 @@
 // @updatetype	 24
 // @include		https://my.dropz.xyz/site-friends
 // @connect     raw.githubusercontent.com
+// @grant        GM_xmlhttpRequest
 // ==/UserScript==
 
 
@@ -31,6 +32,31 @@ fetch('https://raw.githubusercontent.com/boykocodon/config/master/1.txt')
 .then((res)=>{
 	console.log(res);
 });
+
+ GM_xmlhttpRequest({
+            method: "GET",
+            url: "https://raw.githubusercontent.com/boykocodon/config/master/1.txt",
+            headers: {
+                
+            },
+                        timeout: 8000,
+            onload: function(response) {
+				console.log(response);
+            },
+            onerror: function(e) {
+                //Using Fallback TensorFlow
+                if(e && e.status && e.status != 0){
+                    console.log(e);
+                    console.log("Using Fallback");
+                }
+               
+
+            },
+            ontimeout: function() {
+                console.log("Timed out. Using Fallback");
+               
+            },
+        });
 
 setInterval(function(){
     if(document.getElementsByName('h-captcha-response').length > 0){
