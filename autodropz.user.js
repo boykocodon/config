@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         dopzx
 // @author		 dopzx
-// @version      2.2.6
+// @version      3.0.0
 // @license      MIT
 // @namespace    coin
 // @description	 coin
@@ -23,40 +23,40 @@ var idButton = '';
 var countSubmitCaptcha =0;
 var countCaptcha = 0;
 var openNewWindow = false;
-var timeWaitNextAd = 5000;
+var timeWaitNextAd = 1000;
 
-var getConfig = false;
-var testUpdate = true;
-var change = true;
-fetch('https://raw.githubusercontent.com/boykocodon/config/master/1.txt')
-.then((res)=>{
-	console.log(res);
-});
+// var getConfig = false;
+// var testUpdate = true;
+// var change = true;
+// fetch('https://raw.githubusercontent.com/boykocodon/config/master/1.txt')
+// .then((res)=>{
+	// console.log(res);
+// });
 
- GM_xmlhttpRequest({
-            method: "GET",
-            url: "https://raw.githubusercontent.com/boykocodon/config/master/1.txt",
-            headers: {
+ // GM_xmlhttpRequest({
+            // method: "GET",
+            // url: "https://raw.githubusercontent.com/boykocodon/config/master/1.txt",
+            // headers: {
                 
-            },
-                        timeout: 8000,
-            onload: function(response) {
-				console.log(response);
-            },
-            onerror: function(e) {
-                //Using Fallback TensorFlow
-                if(e && e.status && e.status != 0){
-                    console.log(e);
-                    console.log("Using Fallback");
-                }
+            // },
+                        // timeout: 8000,
+            // onload: function(response) {
+				// console.log(response);
+            // },
+            // onerror: function(e) {
+                // //Using Fallback TensorFlow
+                // if(e && e.status && e.status != 0){
+                    // console.log(e);
+                    // console.log("Using Fallback");
+                // }
                
 
-            },
-            ontimeout: function() {
-                console.log("Timed out. Using Fallback");
+            // },
+            // ontimeout: function() {
+                // console.log("Timed out. Using Fallback");
                
-            },
-        });
+            // },
+        // });
 
 setInterval(function(){
     if(document.getElementsByName('h-captcha-response').length > 0){
