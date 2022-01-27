@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         dopzx
 // @author		 dopzx
-// @version      3.1
+// @version      3.2
 // @license      MIT
 // @namespace    coin
 // @description	 coin
@@ -114,6 +114,16 @@ setInterval(function(){
 								 window.open('redir/index.php?ref=' + ref, '_blank');
 								 setTimeout(function(){window.location.reload();},timeWaitNextAd);
 							 }
+							 if(autoWithdraw){
+								 if(document.getElementById('balance_lbl')){
+									 var bl = document.getElementById('balance_lbl').innerText.split('.')[0].replace(',','');
+									 if(bl>minpay){
+										 fetch('https://my.dropz.xyz/api/ex/payout.php',{method:'POST'}).then(()=>{
+										 }).catch(()=>{
+										 });
+									 }
+								 }
+							 }
 						 }
 						//buttonSubmit.click();
 						idButton = curIdButton;
@@ -151,29 +161,29 @@ setInterval(function(){
 	}
 },5000);
 
-var isPay = false;
-setInterval(function(){
-  if(autoWithdraw){
-      if(!isPay){
+// var isPay = false;
+// setInterval(function(){
+  // if(autoWithdraw){
+      // if(!isPay){
 
-         if(document.getElementById('swal2-title') 
-             && (document.getElementById('swal2-title').innerText == 'Payment has been sent'
-             || document.getElementById('swal2-title').innerText == 'Minimum payout is 300 Drops')){
-             isPay = true;
-         }
-         else{
-			 if(document.getElementById('balance_lbl')){
-				 var bl = document.getElementById('balance_lbl').innerText.split('.')[0].replace(',','');
-				 if(bl>minpay){
-					 if(document.getElementById('payout'))
-						document.getElementById('payout').click();
-				 }
-			 }
-         }
+         // if(document.getElementById('swal2-title') 
+             // && (document.getElementById('swal2-title').innerText == 'Payment has been sent'
+             // || document.getElementById('swal2-title').innerText == 'Minimum payout is 300 Drops')){
+             // isPay = true;
+         // }
+         // else{
+			 // if(document.getElementById('balance_lbl')){
+				 // var bl = document.getElementById('balance_lbl').innerText.split('.')[0].replace(',','');
+				 // if(bl>minpay){
+					 // if(document.getElementById('payout'))
+						// document.getElementById('payout').click();
+				 // }
+			 // }
+         // }
 
-     }
-     if(document.getElementsByClassName('swal2-confirm').length > 0){
-         document.getElementsByClassName('swal2-confirm')[0].click();
-     }
-  }
-},5000);
+     // }
+     // if(document.getElementsByClassName('swal2-confirm').length > 0){
+         // document.getElementsByClassName('swal2-confirm')[0].click();
+     // }
+  // }
+// },5000);
