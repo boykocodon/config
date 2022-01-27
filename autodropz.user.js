@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         dopzx
 // @author		 dopzx
-// @version      3.0.0
+// @version      3.1
 // @license      MIT
 // @namespace    coin
 // @description	 coin
@@ -24,6 +24,10 @@ var countSubmitCaptcha =0;
 var countCaptcha = 0;
 var openNewWindow = false;
 var timeWaitNextAd = 1000;
+
+var countSameTitle = 0;
+var lastTitle = '';
+var checkSameTitle = true;
 
 // var getConfig = false;
 // var testUpdate = true;
@@ -61,13 +65,13 @@ var timeWaitNextAd = 1000;
 setInterval(function(){
     if(document.getElementsByName('h-captcha-response').length > 0){
         if(document.getElementsByName('h-captcha-response')[0].value != '') {
-			countSubmitCaptcha++;
-			document.title='Dropz submit captcha ' + countSubmitCaptcha;
-			if(countSubmitCaptcha>20){
-				countSubmitCaptcha = 0;
-				window.location.reload();
-				return;
-			}
+			//countSubmitCaptcha++;
+			document.title='Dropz submit captcha ';// + countSubmitCaptcha;
+			// if(countSubmitCaptcha>20){
+				// countSubmitCaptcha = 0;
+				// window.location.reload();
+				// return;
+			// }
             //if(document.getElementsByClassName('btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn').length > 0){
                // document.getElementsByClassName('btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn') [0].click();
             //}else{
@@ -76,13 +80,13 @@ setInterval(function(){
             //}
             
         }else{
-			countCaptcha++;
-			if(countCaptcha>100){
-				countCaptcha = 0;
-				window.location.reload();
-				return;
-			}
-			document.title='Dropz captcha ' + countCaptcha;
+			// countCaptcha++;
+			// if(countCaptcha>100){
+				// countCaptcha = 0;
+				// window.location.reload();
+				// return;
+			// }
+			document.title='Dropz captcha ';// + countCaptcha;
 		}
     }else{
         if(document.getElementsByClassName('btn btn-info btn-sm mt-3 mb-4').length > 0){
@@ -129,6 +133,23 @@ setInterval(function(){
     }
 }
 ,2000);
+
+setInterval(function(){
+	if(checkSameTitle){
+		var currentTitle = document.title;
+		if(lastTitle == currentTitle){
+			countSameTitle++;
+			console.log('sameTitle',countSameTitle);
+			if(countSameTitle > 60){
+				window.location.reload();
+				countSameTitle = 0;
+			}
+		}else{
+			countSameTitle = 0;
+			lastTitle = currentTitle;
+		}
+	}
+},5000);
 
 var isPay = false;
 setInterval(function(){
