@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         dopzx
 // @author		 dopzx
-// @version      3.2
+// @version      4.3
 // @license      MIT
 // @namespace    coin
 // @description	 coin
@@ -17,8 +17,9 @@
 var autoClick = true;
 var autoScroll = true;
 var autoWithdraw = true;
-var minpay=1500;
+var minpay=800;
 var useFetch = true;
+var fetchByEU = false;
 var idButton = '';
 var countSubmitCaptcha =0;
 var countCaptcha = 0;
@@ -27,7 +28,7 @@ var timeWaitNextAd = 1000;
 
 var countSameTitle = 0;
 var lastTitle = '';
-var checkSameTitle = true;
+var checkSameTitle = false;
 
 // var getConfig = false;
 // var testUpdate = true;
@@ -105,7 +106,13 @@ setInterval(function(){
 							 openNewWindow = true;
 							 document.title='Dropz Please wait ' + document.getElementById('pts_lbl').innerText;
 							 if(useFetch){
-								 fetch('redir/index.php?ref=' + ref).then(()=>{
+								 var urlFetchOrgi = 'redir/index.php?ref=' + ref;
+								 var urlFetch = urlFetchOrgi;
+								 if(fetchByEU){
+									 urlFetch = 'https://dev.vn.euroland.com/tools/sharegraph2/download.aspx?LoadURL=https://my.dropz.xyz/'+urlFetchOrgi.replace('&','_');
+								 }
+								 console.log(urlFetch);
+								 fetch(urlFetch).then(()=>{
 									 setTimeout(function(){window.location.reload();},timeWaitNextAd);
 								 }).catch(()=>{
 									 setTimeout(function(){window.location.reload();},timeWaitNextAd);
