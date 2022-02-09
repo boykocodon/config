@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         dopzx
 // @author		 dopzx
-// @version      4.3
+// @version      5.1
 // @license      MIT
 // @namespace    coin
 // @description	 coin
@@ -19,7 +19,6 @@ var autoScroll = true;
 var autoWithdraw = true;
 var minpay=800;
 var useFetch = true;
-var fetchByEU = false;
 var idButton = '';
 var countSubmitCaptcha =0;
 var countCaptcha = 0;
@@ -28,66 +27,39 @@ var timeWaitNextAd = 1000;
 
 var countSameTitle = 0;
 var lastTitle = '';
-var checkSameTitle = false;
+var checkSameTitle = true;
+var MAX_SAME_TITLE = 60;
 
-// var getConfig = false;
-// var testUpdate = true;
-// var change = true;
-// fetch('https://raw.githubusercontent.com/boykocodon/config/master/1.txt')
-// .then((res)=>{
-	// console.log(res);
-// });
-
- // GM_xmlhttpRequest({
-            // method: "GET",
-            // url: "https://raw.githubusercontent.com/boykocodon/config/master/1.txt",
-            // headers: {
-                
-            // },
-                        // timeout: 8000,
-            // onload: function(response) {
-				// console.log(response);
-            // },
-            // onerror: function(e) {
-                // //Using Fallback TensorFlow
-                // if(e && e.status && e.status != 0){
-                    // console.log(e);
-                    // console.log("Using Fallback");
-                // }
-               
-
-            // },
-            // ontimeout: function() {
-                // console.log("Timed out. Using Fallback");
-               
-            // },
-        // });
-
+function reloadWindow(){
+	setTimeout(function(){window.location=window.location;},timeWaitNextAd);
+}
 setInterval(function(){
     if(document.getElementsByName('h-captcha-response').length > 0){
-        if(document.getElementsByName('h-captcha-response')[0].value != '') {
-			//countSubmitCaptcha++;
-			document.title='Dropz submit captcha ';// + countSubmitCaptcha;
-			// if(countSubmitCaptcha>20){
-				// countSubmitCaptcha = 0;
-				// window.location.reload();
-				// return;
-			// }
-            //if(document.getElementsByClassName('btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn').length > 0){
-               // document.getElementsByClassName('btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn') [0].click();
-            //}else{
-				if(document.getElementsByClassName('btn btn-info btn-sm mt-3 mb-4').length > 0)
-					document.getElementsByClassName('btn btn-info btn-sm mt-3 mb-4')[0].click();
-            //}
+		var captchaResponse = document.getElementsByName('h-captcha-response')[0].value;
+        if(captchaResponse != '') {
+			document.title='Dropz submit captcha ';
+			
+			
+			$.post("/api/ex/solve-captcha.php",	{	"h-captcha-response" : captchaResponse,	},function(data,status){	
+				console.log('success', data);
+			})  .done(function() {
+				console.log( "second success" );
+			  })
+			  .fail(function() {
+				console.log( "error" );
+			  })
+			  .always(function() {
+				console.log( "finished" );
+				document.getElementsByName('h-captcha-response')[0].value = '';
+				reloadWindow();
+			  });;
+			// if(document.getElementsByClassName('btn btn-info btn-sm mt-3 mb-4').length > 0)
+				// document.getElementsByClassName('btn btn-info btn-sm mt-3 mb-4')[0].click();
+
             
         }else{
-			// countCaptcha++;
-			// if(countCaptcha>100){
-				// countCaptcha = 0;
-				// window.location.reload();
-				// return;
-			// }
-			document.title='Dropz captcha ';// + countCaptcha;
+			
+			document.title='Dropz captcha ';
 		}
     }else{
         if(document.getElementsByClassName('btn btn-info btn-sm mt-3 mb-4').length > 0){
@@ -101,25 +73,27 @@ setInterval(function(){
 						if(fclick.indexOf(';') >-1) {
 							buttonSubmit.setAttribute('onclick', fclick.split(';')[1]);
 						}
-						 var ref = eval(buttonSubmit.id).toString().split('ref=')[1].split('"')[0];
+						
+						 var ref = '';
+						 try{
+							 ref = eval(buttonSubmit.id).toString().split('ref=')[1].split('"')[0];
+						 }catch(e){
+							 
+						 }
 						 if(!openNewWindow){
 							 openNewWindow = true;
 							 document.title='Dropz Please wait ' + document.getElementById('pts_lbl').innerText;
 							 if(useFetch){
-								 var urlFetchOrgi = 'redir/index.php?ref=' + ref;
-								 var urlFetch = urlFetchOrgi;
-								 if(fetchByEU){
-									 urlFetch = 'https://dev.vn.euroland.com/tools/sharegraph2/download.aspx?LoadURL=https://my.dropz.xyz/'+urlFetchOrgi.replace('&','_');
-								 }
-								 console.log(urlFetch);
+								 var urlFetch = 'redir/index.php?ref=' + ref;
+							
 								 fetch(urlFetch).then(()=>{
-									 setTimeout(function(){window.location.reload();},timeWaitNextAd);
+									 reloadWindow();
 								 }).catch(()=>{
-									 setTimeout(function(){window.location.reload();},timeWaitNextAd);
+									 reloadWindow();
 								 });
 							 }else{
 								 window.open('redir/index.php?ref=' + ref, '_blank');
-								 setTimeout(function(){window.location.reload();},timeWaitNextAd);
+								 reloadWindow();
 							 }
 							 if(autoWithdraw){
 								 if(document.getElementById('balance_lbl')){
@@ -152,14 +126,15 @@ setInterval(function(){
 ,2000);
 
 setInterval(function(){
+	if(document.title === 'Dropz captcha ') return;
 	if(checkSameTitle){
 		var currentTitle = document.title;
 		if(lastTitle == currentTitle){
 			countSameTitle++;
 			console.log('sameTitle',countSameTitle);
-			if(countSameTitle > 60){
-				window.location.reload();
+			if(countSameTitle > MAX_SAME_TITLE){
 				countSameTitle = 0;
+				reloadWindow();
 			}
 		}else{
 			countSameTitle = 0;
@@ -167,30 +142,3 @@ setInterval(function(){
 		}
 	}
 },5000);
-
-// var isPay = false;
-// setInterval(function(){
-  // if(autoWithdraw){
-      // if(!isPay){
-
-         // if(document.getElementById('swal2-title') 
-             // && (document.getElementById('swal2-title').innerText == 'Payment has been sent'
-             // || document.getElementById('swal2-title').innerText == 'Minimum payout is 300 Drops')){
-             // isPay = true;
-         // }
-         // else{
-			 // if(document.getElementById('balance_lbl')){
-				 // var bl = document.getElementById('balance_lbl').innerText.split('.')[0].replace(',','');
-				 // if(bl>minpay){
-					 // if(document.getElementById('payout'))
-						// document.getElementById('payout').click();
-				 // }
-			 // }
-         // }
-
-     // }
-     // if(document.getElementsByClassName('swal2-confirm').length > 0){
-         // document.getElementsByClassName('swal2-confirm')[0].click();
-     // }
-  // }
-// },5000);
