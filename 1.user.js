@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hcaptcha Solver (Automatically solves Hcaptcha in browser)
 // @namespace    Hcaptcha Solver
-// @version      7.9
+// @version      9.0
 // @description  Hcaptcha Solver in Browser | Automatically solves Hcaptcha in browser
 // @author       Md ubeadulla
 // @match        https://*.hcaptcha.com/*hcaptcha-challenge*
@@ -704,7 +704,7 @@
             if (imageUrl == 0) {
                 return selectImagesAfterDelay(1);
             }
-			 inputChallenge('123456', imageUrl);
+			 inputChallengeFake('123456', imageUrl);
 			 return selectImages();
             //preProcessImage(imageUrl);
 
@@ -891,7 +891,21 @@
             console.log(err.message);
         }
     }
+	function inputChallengeFake(word, imageUrl) {
+        try {
+            if ((qSelector(IMAGE_FOR_OCR).style.background).includes(imageUrl)) {
+                var targetNode = qSelector(CHALLENGE_INPUT_FIELD);
+                targetNode.value = word;
+                var challengeInput = qSelector(CHALLENGE_INPUT);
+                triggerEvent(challengeInput, 'input');
+                // Set a timeout if you want to see the text
+                qSelector(SUBMIT_BUTTON).click();
+            }
 
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
     async function identifyWordFromExamples() {
 
         var word = -1;
