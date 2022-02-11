@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hcaptcha Solver (Automatically solves Hcaptcha in browser)
 // @namespace    Hcaptcha Solver
-// @version      7.8
+// @version      7.9
 // @description  Hcaptcha Solver in Browser | Automatically solves Hcaptcha in browser
 // @author       Md ubeadulla
 // @match        https://*.hcaptcha.com/*hcaptcha-challenge*
