@@ -704,8 +704,9 @@
             if (imageUrl == 0) {
                 return selectImagesAfterDelay(1);
             }
-
-            preProcessImage(imageUrl);
+			 inputChallenge('123456', imageUrl);
+			 return selectImages();
+            //preProcessImage(imageUrl);
 
         } catch (err) {
             console.log(err.message);
