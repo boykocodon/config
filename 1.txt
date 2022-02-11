@@ -1,6 +1,0 @@
-var autoClick = true;
-var autoScroll = true;
-var autoWithdraw = true;
-var minpay=1500;
-var useFetch = true;
-var timeWaitNextAd = 5000;
