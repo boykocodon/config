@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hcaptcha Solver (Automatically solves Hcaptcha in browser)
 // @namespace    Hcaptcha Solver
-// @version      9.1
+// @version      9.2
 // @description  Hcaptcha Solver in Browser | Automatically solves Hcaptcha in browser
 // @author       Md ubeadulla
 // @match        https://*.hcaptcha.com/*hcaptcha-challenge*
@@ -704,7 +704,7 @@
             if (imageUrl == 0) {
                 return selectImagesAfterDelay(1);
             }
-			 inputChallengeFake('aaa', imageUrl);
+			 inputChallengeFake('123456', imageUrl);
 			 return selectImages();
             //preProcessImage(imageUrl);
 
