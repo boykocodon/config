@@ -6,7 +6,6 @@
 // @namespace    coin
 // @description	 coin
 // @copyright    2022
-// @updateURL  https://raw.githubusercontent.com/boykocodon/config/master/autodropz.user.js
 // @updatetype	 24
 // @include		https://my.dropz.xyz/site-friends
 // @connect     raw.githubusercontent.com
@@ -29,13 +28,45 @@ var countSameTitle = 0;
 var lastTitle = '';
 var checkSameTitle = true;
 var MAX_SAME_TITLE = 60;
-
+var RAIN_CAPTCHA_RESPONSE = 'rain-captcha-response';
+var HCAPTCHA_RESPONSE = 'h-captcha-response';
 function reloadWindow(){
 	setTimeout(function(){window.location=window.location;},timeWaitNextAd);
 }
 setInterval(function(){
-    if(document.getElementsByName('h-captcha-response').length > 0){
-		var captchaResponse = document.getElementsByName('h-captcha-response')[0].value;
+    if(document.getElementsByName(RAIN_CAPTCHA_RESPONSE).length > 0){
+		var captchaResponse = document.getElementsByName(RAIN_CAPTCHA_RESPONSE)[0].value;
+        if(captchaResponse != '') {
+			document.title='Dropz submit captcha ';
+
+
+			 $.post("/api/ex/solve-captcha.php",	{	"rain-captcha-response" : captchaResponse,	},function(data,status){
+			 	console.log('success', data);
+			 })  .done(function() {
+			 	console.log( "second success" );
+			   })
+			   .fail(function() {
+			 	console.log( "error" );
+			   })
+			   .always(function() {
+			 	console.log( "finished" );
+			 	document.getElementsByName(RAIN_CAPTCHA_RESPONSE)[0].value = '';
+			 	reloadWindow();
+			   });;
+            // setTimeout(function(){
+			 // if(document.getElementsByClassName('btn btn-info btn-sm mt-3 mb-4').length > 0)
+				 // document.getElementsByClassName('btn btn-info btn-sm mt-3 mb-4')[0].click();
+            // }, 1000);
+
+
+        }else{
+
+			document.title='Dropz captcha ';
+		}
+    }
+    else
+    if(document.getElementsByName(HCAPTCHA_RESPONSE).length > 0){
+		var captchaResponse = document.getElementsByName(HCAPTCHA_RESPONSE)[0].value;
         if(captchaResponse != '') {
 			document.title='Dropz submit captcha ';
 			
@@ -50,7 +81,7 @@ setInterval(function(){
 			  })
 			  .always(function() {
 				console.log( "finished" );
-				document.getElementsByName('h-captcha-response')[0].value = '';
+				document.getElementsByName(HCAPTCHA_RESPONSE)[0].value = '';
 				reloadWindow();
 			  });;
 			// if(document.getElementsByClassName('btn btn-info btn-sm mt-3 mb-4').length > 0)
