@@ -16,7 +16,7 @@
 var autoClick = true;
 var autoScroll = true;
 var autoWithdraw = true;
-var minpay=800;
+var minpay=2800;
 var useFetch = true;
 var idButton = '';
 var countSubmitCaptcha =0;
@@ -69,9 +69,9 @@ setInterval(function(){
 		var captchaResponse = document.getElementsByName(HCAPTCHA_RESPONSE)[0].value;
         if(captchaResponse != '') {
 			document.title='Dropz submit captcha ';
-			
-			
-			$.post("/api/ex/solve-captcha.php",	{	"h-captcha-response" : captchaResponse,	},function(data,status){	
+
+
+			$.post("/api/ex/solve-captcha.php",	{	"h-captcha-response" : captchaResponse,	},function(data,status){
 				console.log('success', data);
 			})  .done(function() {
 				console.log( "second success" );
@@ -87,9 +87,9 @@ setInterval(function(){
 			// if(document.getElementsByClassName('btn btn-info btn-sm mt-3 mb-4').length > 0)
 				// document.getElementsByClassName('btn btn-info btn-sm mt-3 mb-4')[0].click();
 
-            
+
         }else{
-			
+
 			document.title='Dropz captcha ';
 		}
     }else{
@@ -104,19 +104,19 @@ setInterval(function(){
 						if(fclick.indexOf(';') >-1) {
 							buttonSubmit.setAttribute('onclick', fclick.split(';')[1]);
 						}
-						
+
 						 var ref = '';
 						 try{
 							 ref = eval(buttonSubmit.id).toString().split('ref=')[1].split('"')[0];
 						 }catch(e){
-							 
+
 						 }
 						 if(!openNewWindow){
 							 openNewWindow = true;
 							 document.title='Dropz Please wait ' + document.getElementById('pts_lbl').innerText;
 							 if(useFetch){
 								 var urlFetch = 'redir/index.php?ref=' + ref;
-							
+
 								 fetch(urlFetch).then(()=>{
 									 reloadWindow();
 								 }).catch(()=>{
@@ -162,7 +162,7 @@ setInterval(function(){
 		var currentTitle = document.title;
 		if(lastTitle == currentTitle){
 			countSameTitle++;
-			console.log('sameTitle',countSameTitle);
+			//console.log('sameTitle',countSameTitle);
 			if(countSameTitle > MAX_SAME_TITLE){
 				countSameTitle = 0;
 				reloadWindow();
