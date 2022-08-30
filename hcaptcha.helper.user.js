@@ -33,9 +33,6 @@ setInterval( () => {
 		if(divs.length == 0) { return;}
 
 		var curImg = divs[0].style.background;
-		console.log(curImg);
-		console.log(lastImg);
-		console.log(curImg == lastImg);
 		if(curImg == lastImg) {
 			try{
 			$.get(host + "?site=hcaptcha&read=true&folder="+ folderRead +"&file=" + utc,
@@ -52,7 +49,7 @@ setInterval( () => {
 				 setTimeout(function(){document.querySelector('div.button-submit').click();},200);
 
 			 }).always(function(){
-				 console.log('in always');
+				 
 			 });
 			}catch(eee){
 
