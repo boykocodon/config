@@ -20,15 +20,14 @@ var folderRead = 'blobsolve';
 var host = "https://dev.vn.euroland.com/tools/sharegraph/hive.aspx/";*/
 var utc = '';
 var lastImg = '';
-setInterval(()=>{
+setInterval(()=>{	
 		if(document.querySelector('.prompt-text') == null) {
 			if(document.getElementById('checkbox') !=null){
 				document.getElementById('checkbox').click();
 			}
 		}
 },2000);
-setInterval( () => {
-		console.log('bbb');
+setInterval( () => {		
 		var divs = document.querySelectorAll('div.image-wrapper>div');
 
 		if(divs.length == 0) { return;}
@@ -39,10 +38,9 @@ setInterval( () => {
 		console.log(curImg == lastImg);
 		if(curImg == lastImg) {
 			try{
-			$.get(//'https://dev.vn.euroland.com/tools/sharegraph/handlers/tabsdata.aspx?solutionid=561&isin=DK0010181759&marketid=19&languageid=32&isarabic=false&culturecode=en-us&isomx=True&ishidedownloadexcel=false&iseod=false&systemCurrency=DKK&tabname=trade',
-			host + "?site=hcaptcha&read=true&folder="+ folderRead +"&file=" + utc,
+			$.get(host + "?site=hcaptcha&read=true&folder="+ folderRead +"&file=" + utc,
 			function(data){
-				console.log(data, 'in get');
+				
 				 var spankq = data.split('<span id=\'ketqua\'>')[1];
 				 if(!spankq) return;
 				 var kq = spankq.split('</span>')[0].trim();
